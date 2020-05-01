@@ -10,15 +10,19 @@ class App extends React.Component<AppProps, AppState> {
     private timer: NodeJS.Timeout | null = null;
 
     state = {
+        speed: 1000,
         isOn: false,
+        initialTime: 0,
         time: 0,
     };
 
     startTimer = async () => {
+        const { speed } = this.state;
+
         await this.setState({ isOn: true });
         this.timer = setInterval(() => {
             this.setState(({ time }) => ({ time: time - 1 }))
-        }, 1000);
+        }, speed);
     };
 
     stopTimer = async () => {
@@ -27,8 +31,10 @@ class App extends React.Component<AppProps, AppState> {
     };
 
     onStartClick = async (minutes: number) => {
+        const seconds = minutes * 60;
+
         await this.stopTimer();
-        await this.setState({ time: minutes * 60 });
+        await this.setState({ initialTime: seconds, time: seconds });
         this.startTimer();
     };
 
@@ -42,7 +48,16 @@ class App extends React.Component<AppProps, AppState> {
         return this.startTimer();
     };
 
-    onSpeedChange = () => {};
+    onSpeedChange = async (value: number) => {
+        const { isOn } = this.state;
+
+        await this.setState({ speed: 1000 / value });
+
+        if (isOn) {
+            await this.stopTimer();
+            await this.startTimer();
+        }
+    };
 
     render() {
         const { isOn, time } = this.state;

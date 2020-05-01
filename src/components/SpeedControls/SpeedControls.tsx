@@ -2,30 +2,30 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import Button from '../Button';
-import { TIMER_SPEED_MODE, SpeedControlsProps } from '.';
+import { TIMER_SPEED_MODE, SpeedControlsProps, SpeedModeType } from '.';
 import styles from './SpeedControls.module.scss';
 
 const SpeedControls = (props: SpeedControlsProps) => {
     const { className, onChange } = props;
     const classes = classNames(styles.speedControls, className);
-    const [selectedMode, setSelectedMode] = useState<string>(TIMER_SPEED_MODE.X1);
+    const [selectedMode, setSelectedMode] = useState<SpeedModeType>(TIMER_SPEED_MODE.X1);
 
-    const onButtonClick = (mode: string) => () => {
+    const onButtonClick = (mode: SpeedModeType) => () => {
         setSelectedMode(mode);
-        onChange(mode);
+        onChange(mode.value);
     };
 
     return (
         <div className={classes}>
             {Object.values(TIMER_SPEED_MODE).map((mode) => (
                 <Button
-                    key={mode}
+                    key={mode.name}
                     className={styles.button}
                     type="action"
                     onClick={onButtonClick(mode)}
-                    isActive={selectedMode === mode}
+                    isActive={selectedMode.name === mode.name}
                 >
-                    {mode}
+                    {mode.name}
                 </Button>
             ))}
         </div>

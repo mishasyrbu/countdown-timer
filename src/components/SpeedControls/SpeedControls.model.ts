@@ -1,4 +1,9 @@
 export interface SpeedControlsProps {
     className?: string;
-    onChange: (mode: string) => void;
+    onChange: (value: number) => void;
+}
+
+export interface SpeedModeType {
+    name: string;
+    value: number;
 }
