@@ -14,7 +14,7 @@ const StartControls = (props: StartControlsProps) => {
         const { value, validity: { valid } } = event.target;
 
         if (valid) {
-            setCount(value || '');
+            setCount(value);
         }
     };
 

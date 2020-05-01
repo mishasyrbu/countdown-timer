@@ -37,7 +37,7 @@ class App extends React.Component<AppProps, AppState> {
 
     stopTimer = async () => {
         await this.setState({ isOn: false });
-        this.timer && clearInterval(this.timer)
+        this.timer && clearInterval(this.timer);
     };
 
     playNotification = () => {
