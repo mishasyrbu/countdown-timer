@@ -21,7 +21,14 @@ class App extends React.Component<AppProps, AppState> {
 
         await this.setState({ isOn: true });
         this.timer = setInterval(() => {
-            this.setState(({ time }) => ({ time: time - 1 }))
+            this.setState(({ time }): AppState => {
+                if (time === 0) {
+                    this.timer && clearInterval(this.timer);
+                    return { time, initialTime: null, isOn: false };
+                }
+
+                return { time: time - 1 };
+            });
         }, speed);
     };
 
@@ -60,14 +67,15 @@ class App extends React.Component<AppProps, AppState> {
     };
 
     render() {
-        const { isOn, time } = this.state;
+        const { isOn, initialTime, time } = this.state;
 
         return (
             <div className="app-container">
                 <StartControls onStart={this.onStartClick} />
                     <CountdownDisplay
                         isOn={isOn}
-                        value={time}
+                        time={time}
+                        initialTime={initialTime}
                         onPlayStop={this.onPlayStopClick}
                     />
                 <SpeedControls onChange={this.onSpeedChange} />

@@ -1,30 +1,55 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 
 import { CountdownDisplayProps } from '.';
 import styles from './CountdownDisplay.module.scss';
 
 const CountdownDisplay = (props: CountdownDisplayProps) => {
-    const { className, isOn = false, onPlayStop, value } = props;
+    const { className, isOn = false, onPlayStop, initialTime, time } = props;
+    const [isFirstRun, setIsFirstRun] = useState<boolean>(true);
     const classes = classNames(styles.countdownDisplay, className);
-    const minutes = Math.floor(value / 60);
-    const seconds = value - minutes * 60;
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
 
     const onPlayPauseClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        value > 0 && onPlayStop();
+        time > 0 && onPlayStop();
     };
+
+    const renderInfoBox = () => {
+        const timesUp = time === 0;
+        const lessThanHalfLeft = !timesUp && initialTime && initialTime / 2 > time;
+        const classes = classNames(styles.messageInfo, {
+            [styles.redText]: !timesUp && time <= 20,
+            [styles.blink]: !timesUp && time <= 10,
+        });
+
+        return (
+            <div className={classes}>
+                {!isFirstRun && lessThanHalfLeft && <i>More than halfway there!</i>}
+                {!isFirstRun && timesUp && <i>Time’s up!</i>}
+            </div>
+        );
+    };
+
+    useEffect(() => {
+        if (time && isFirstRun) {
+            setIsFirstRun(false);
+        }
+    }, [time, isFirstRun]);
 
     return (
         <div className={classes}>
-            <i className={styles.messageInfo}>More than halfway there!</i>
+            {renderInfoBox()}
             <div className={styles.countdown}>
                 {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </div>
-            <button className={styles.playPause} onClick={onPlayPauseClick}>
-                <div className={isOn ? styles.pause : styles.play} />
-            </button>
+            {!!time && (
+                <button className={styles.playPause} onClick={onPlayPauseClick}>
+                    <div className={isOn ? styles.pause : styles.play} />
+                </button>
+            )}
         </div>
     );
 };

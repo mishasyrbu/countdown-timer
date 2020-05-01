@@ -2,5 +2,6 @@ export interface CountdownDisplayProps {
     className?: string;
     isOn?: boolean;
     onPlayStop: () => void;
-    value: number;
+    initialTime: number | null;
+    time: number;
 }

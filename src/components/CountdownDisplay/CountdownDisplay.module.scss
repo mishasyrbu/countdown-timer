@@ -6,7 +6,23 @@
 }
 
 .messageInfo {
+  width: 100%;
+  height: 20px;
+  text-align: center;
+}
 
+.redText {
+  color: red;
+}
+
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 
 .countdown {
