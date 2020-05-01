@@ -1,0 +1,44 @@
+.countdownDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.messageInfo {
+
+}
+
+.countdown {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.playPause {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 41px;
+  width: 41px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  padding: 4px;
+  position: absolute;
+  right: -50px;
+  top: calc(100% / 2 - 10px);
+  outline: none;
+  cursor: pointer;
+}
+
+.play {
+  border-style: solid;
+  border-width: 10px 0 10px 20px;
+  border-color: transparent transparent transparent #000;
+}
+
+.pause {
+  height: 20px;
+  border-style: double;
+  border-width: 0 0 0 10px;
+  border-color: #000;
+}
