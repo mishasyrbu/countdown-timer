@@ -8,6 +8,7 @@ import './App.scss';
 
 class App extends React.Component<AppProps, AppState> {
     private timer: NodeJS.Timeout | null = null;
+    private audioNotificationRef = React.createRef<HTMLMediaElement>();
 
     state = {
         speed: 1000,
@@ -24,6 +25,8 @@ class App extends React.Component<AppProps, AppState> {
             this.setState(({ time }): AppState => {
                 if (time === 0) {
                     this.timer && clearInterval(this.timer);
+                    this.playNotification();
+
                     return { time, initialTime: null, isOn: false };
                 }
 
@@ -35,6 +38,12 @@ class App extends React.Component<AppProps, AppState> {
     stopTimer = async () => {
         await this.setState({ isOn: false });
         this.timer && clearInterval(this.timer)
+    };
+
+    playNotification = () => {
+        this.audioNotificationRef
+        && this.audioNotificationRef.current
+        && this.audioNotificationRef.current.play();
     };
 
     onStartClick = async (minutes: number) => {
@@ -79,6 +88,10 @@ class App extends React.Component<AppProps, AppState> {
                         onPlayStop={this.onPlayStopClick}
                     />
                 <SpeedControls onChange={this.onSpeedChange} />
+                <audio ref={this.audioNotificationRef}>
+                    <source src={require('./assets/audio/notification.ogg')} type="audio/ogg" />
+                    <source src={require('./assets/audio/notification.mp3')} type="audio/mpeg" />
+                </audio>
             </div>
         );
     }
