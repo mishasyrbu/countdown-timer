@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> should match the snapshot 1`] = `"<div class=\\"app-container\\"><div class=\\"startControls\\"><span class=\\"title\\">Countdown:</span><input type=\\"text\\" class=\\"input\\" placeholder=\\"(Min)\\" pattern=\\"[0-9]*\\" value=\\"\\"/><button class=\\"button disabled primary\\">START</button></div><div class=\\"countdownDisplay\\"><div class=\\"messageInfo\\"></div><div class=\\"countdown\\">00:00</div></div><div class=\\"speedControls\\"><button class=\\"button active button action\\">1X</button><button class=\\"button button action\\">1.5X</button><button class=\\"button button action\\">2X</button></div></div>"`;

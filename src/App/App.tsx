@@ -7,7 +7,7 @@ import StartControls from '../components/StartControls';
 import './App.scss';
 
 class App extends React.Component<AppProps, AppState> {
-    private timer: NodeJS.Timeout | null = null;
+    timer: NodeJS.Timeout | null = null;
 
     state = {
         speed: 1000,

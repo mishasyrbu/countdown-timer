@@ -53,8 +53,10 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/node_modules/",
       "!<rootDir>/public",
+      "!<rootDir>/coverage",
       "!<rootDir>/build",
-      "!<rootDir>/src/serviceWorker.ts"
+      "!<rootDir>/src/serviceWorker.ts",
+      "!<rootDir>/src/index.tsx"
     ],
     "coverageThreshold": {
       "global": {
