@@ -2,11 +2,14 @@
   "name": "countdown-timer",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://mishasyrbu.github.io/countdown-timer",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "coverage": "yarn test -- --coverage --watchAll=false"
+    "coverage": "yarn test -- --coverage --watchAll=false",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^16.13.1",
@@ -28,6 +31,7 @@
     "classnames": "^2.2.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "gh-pages": "^2.2.0",
     "node-sass": "^4.14.0",
     "react-scripts": "3.4.1",
     "typescript": "~3.8.3"
