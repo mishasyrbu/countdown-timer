@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { AppProps, AppState } from '.';
-import SpeedControls from '../SpeedControls';
-import CountdownDisplay from '../CountdownDisplay';
-import StartControls from '../StartControls';
+import { AppProps, AppState } from './index';
+import SpeedControls from '../components/SpeedControls';
+import CountdownDisplay from '../components/CountdownDisplay';
+import StartControls from '../components/StartControls';
 import './App.scss';
 
 class App extends React.Component<AppProps, AppState> {
