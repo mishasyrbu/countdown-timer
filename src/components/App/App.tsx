@@ -8,7 +8,6 @@ import './App.scss';
 
 class App extends React.Component<AppProps, AppState> {
     private timer: NodeJS.Timeout | null = null;
-    private audioNotificationRef = React.createRef<HTMLMediaElement>();
 
     state = {
         speed: 1000,
@@ -21,7 +20,7 @@ class App extends React.Component<AppProps, AppState> {
         const { speed } = this.state;
 
         await this.setState({ isOn: true });
-        this.timer = setInterval(() => {
+        this.timer = setInterval(() =>
             this.setState(({ time }): AppState => {
                 if (time === 0) {
                     this.timer && clearInterval(this.timer);
@@ -31,8 +30,7 @@ class App extends React.Component<AppProps, AppState> {
                 }
 
                 return { time: time - 1 };
-            });
-        }, speed);
+            }), speed);
     };
 
     stopTimer = async () => {
@@ -41,9 +39,8 @@ class App extends React.Component<AppProps, AppState> {
     };
 
     playNotification = () => {
-        this.audioNotificationRef
-        && this.audioNotificationRef.current
-        && this.audioNotificationRef.current.play();
+        const soundEffect = new Audio(require('./assets/audio/notification.mp3'));
+        return soundEffect.play();
     };
 
     onStartClick = async (minutes: number) => {
@@ -51,17 +48,13 @@ class App extends React.Component<AppProps, AppState> {
 
         await this.stopTimer();
         await this.setState({ initialTime: seconds, time: seconds });
-        this.startTimer();
+        await this.startTimer();
     };
 
     onPlayStopClick = () => {
         const { isOn } = this.state;
 
-        if (isOn) {
-            return this.stopTimer();
-        }
-
-        return this.startTimer();
+        isOn ? this.stopTimer() : this.startTimer();
     };
 
     onSpeedChange = async (value: number) => {
@@ -88,10 +81,6 @@ class App extends React.Component<AppProps, AppState> {
                         onPlayStop={this.onPlayStopClick}
                     />
                 <SpeedControls onChange={this.onSpeedChange} />
-                <audio ref={this.audioNotificationRef}>
-                    <source src={require('./assets/audio/notification.ogg')} type="audio/ogg" />
-                    <source src={require('./assets/audio/notification.mp3')} type="audio/mpeg" />
-                </audio>
             </div>
         );
     }
